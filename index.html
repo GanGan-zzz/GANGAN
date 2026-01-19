@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuxiao Zhou | The Data Creative</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS 变量定义 --- */
+        :root {
+            --bg-color: #F8F8F6; /* 米白底色 */
+            --text-color: #1A1A1A; /* 极简黑 */
+            --accent-blue: #002FA7; /* 克莱因蓝 */
+            --accent-yellow: #F5E050; /* Gen Z 黄 */
+            --usc-red: #990000; /* USC 红 */
+        }
+
+        /* --- 基础重置 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { width: 100%; height: auto; display: block; object-fit: cover; }
+
+        /* --- 布局工具类 --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-padding { padding: 80px 0; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--text-color);
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--text-color);
+        }
+        .btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        /* --- 1. Navigation --- */
+        nav {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--text-color);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; font-family: 'Oswald', sans-serif; }
+        .nav-links a { margin-left: 30px; font-weight: 600; font-size: 0.9rem; }
+
+        /* --- 2. Hero Section --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-color: #000; /* 这里的背景图建议用 [Image 8: USC卫衣夕阳照] */
+            color: #fff;
+            overflow: hidden;
+        }
+        /* 模拟背景图 */
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://placehold.co/1920x1080/333/999?text=Insert+Image+8:+USC+Sunset') no-repeat center center/cover;
+            opacity: 0.7;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        .hero h1 {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .highlight { color: var(--accent-yellow); }
+        .sub-hero { font-size: 1.2rem; font-weight: 300; margin-bottom: 30px; }
+
+        /* --- 3. About Me (Bento Grid) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-photo-wrapper {
+            position: relative;
+        }
+        .about-photo {
+            /* 建议用 [Image 7: 戴马里奥帽子] */
+            border: 3px solid var(--text-color);
+            box-shadow: 10px 10px 0px var(--accent-blue);
+            transform: rotate(-2deg);
+            transition: 0.3s;
+        }
+        .about-photo:hover { transform: rotate(0deg); }
+        
+        .role-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .role-card {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            flex: 1 1 45%;
+        }
+        .role-title { color: var(--accent-blue); font-weight: 700; margin-bottom: 10px; display: block;}
+
+        /* --- 4. Featured Work --- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: #fff;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .project-img { height: 250px; background: #ddd; position: relative; }
+        .project-info { padding: 25px; }
+        .tag { 
+            font-size: 0.75rem; background: var(--text-color); color: #fff; 
+            padding: 3px 8px; border-radius: 2px; text-transform: uppercase;
+        }
+
+        /* --- 5. Data Lab (New) --- */
+        .data-lab {
+            background: #fff;
+            border-top: 5px solid var(--accent-blue);
+        }
+        .lab-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .data-viz {
+            background: #f0f4f8;
+            padding: 40px;
+            text-align: center;
+            border: 1px dashed var(--accent-blue);
+        }
+
+        /* --- 6. Product Thoughts (New) --- */
+        .thoughts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .thought-card {
+            padding: 40px;
+            color: #fff;
+        }
+        .card-red { background: #FF2442; /* 小红书红 */ }
+        .card-black { background: #000000; /* 抖音黑 */ }
+        
+        .comparison-table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+        .comparison-table th { color: var(--accent-blue); }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--text-color);
+            color: #fff;
+            text-align: center;
+            padding: 60px 0;
+        }
+        .footer-cta { font-size: 2rem; margin-bottom: 20px; font-family: 'Oswald'; }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .about-grid, .lab-layout, .thoughts-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* 简化版，实际可做汉堡菜单 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">YUXIAO ZHOU <span style="color:var(--accent-blue)">.</span></div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#work">Projects</a>
+                <a href="#datalab">Data Lab</a>
+                <a href="#thoughts">Insights</a>
+                <a href="#" style="color:var(--accent-blue)">Download Resume</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="hero">
+        <div class="hero-bg"></div> <div class="container hero-content">
+            <h1>Hello, I'm Yuxiao.<br>I build products that <span class="highlight">connect people</span>.</h1>
+            <p class="sub-hero">Data-Driven Strategist | USC Grad | Ex-Xiaohongshu & Publicis</p>
+            <a href="#work" class="btn" style="background: var(--accent-blue); border-color: var(--accent-blue);">View Portfolio</a>
+        </div>
+    </header>
+
+    <section id="about" class="section-padding container">
+        <div class="about-grid">
+            <div class="about-photo-wrapper">
+                <img src="https://placehold.co/600x800/222/fff?text=Photo:+Mario+Hat" alt="Yuxiao with Mario Hat" class="about-photo">
+            </div>
+            <div class="about-text">
+                <h2>The Data Creative</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 30px;">
+                    我是周雨潇 (Yuxiao)，一个用数据讲故事的产品探索者。从上海到洛杉矶 (USC)，我致力于将 <strong>STEM 逻辑</strong> 与 <strong>Z世代审美</strong> 结合，打造不仅有效率，更有温度的产品。
+                </p>
+                
+                <div class="role-tags">
+                    <div class="role-card">
+                        <span class="role-title">🎓 The Scholar</span>
+                        <p>USC 传播管理硕士 (STEM)<br>上海大学优秀毕业生 (Top 1%)</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-title">💻 The Analyst</span>
+                        <p>Python, SQL, SPSS, Tableau<br>Google Data Analytics Cert</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-title">🚀 The Strategist</span>
+                        <p>前小红书商业化策略<br>前阳狮集团数据分析</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-title">🎨 The Creator</span>
+                        <p>内容创作者 (48W+ 浏览量)<br>跨文化洞察力</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="section-padding" style="background: #fff;">
+        <div class="container">
+            <h2 style="margin-bottom: 40px; font-size: 2.5rem;">Selected Work</h2>
+            <div class="work-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://placehold.co/600x400/FF2442/fff?text=Xiaohongshu+Case" alt="Xiaohongshu">
+                    </div>
+                    <div class="project-info">
+                        <span class="tag">Product Strategy</span>
+                        <h3 style="margin: 10px 0;">小红书商业化策略优化</h3>
+                        <p>通过SQL挖掘3C行业数据，定义产品迭代优先级，推动线索直播功能上线。</p>
+                        <a href="#" style="color:var(--accent-blue); font-weight:700; margin-top:10px; display:block;">Read Case Study →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://placehold.co/600x400/333/fff?text=Publicis+Data" alt="Publicis">
+                    </div>
+                    <div class="project-info">
+                        <span class="tag">Data Analysis</span>
+                        <h3 style="margin: 10px 0;">阳狮集团全渠道增长</h3>
+                        <p>追踪10+平台竞品数据，为达能爱他美提供实时投放策略，实现ROI最大化。</p>
+                        <a href="#" style="color:var(--accent-blue); font-weight:700; margin-top:10px; display:block;">Read Case Study →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://placehold.co/600x400/F5E050/333?text=Chopscore+BD" alt="Chopscore">
+                    </div>
+                    <div class="project-info">
+                        <span class="tag">0-to-1 Growth</span>
+                        <h3 style="margin: 10px 0;">洛杉矶商户拓展 (BD)</h3>
+                        <p>从0开拓6家餐饮商户，带领团队进行全漏斗营销，实现从地推到线上的闭环。</p>
+                        <a href="#" style="color:var(--accent-blue); font-weight:700; margin-top:10px; display:block;">Read Case Study →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="datalab" class="section-padding data-lab">
+        <div class="container">
+            <h2 style="margin-bottom: 40px;">🧪 The Data Lab</h2>
+            <div class="lab-layout">
+                <div class="data-text">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px;">When Chatbots Get Emotional</h3>
+                    <p class="tag" style="background: var(--accent-blue); display:inline-block; margin-bottom: 20px;">SPSS & AMOS Analysis</p>
+                    <p style="margin-bottom: 20px;">
+                        <strong>假设：</strong>机器人的“拟人化”是否直接提升任务效率？<br>
+                        <strong>数据：</strong>427份长三角用户有效问卷。<br>
+                        <strong>发现：</strong>数据证实，拟人化特征是建立信任的关键杠杆。当AI表现出情感适应性时，用户不仅觉得有趣，更认为它能显著提升任务绩效 (Task-Technology Fit)。
+                    </p>
+                    <p style="font-style: italic; color: #666;">"To increase adoption, build empathy, not just efficiency."</p>
+                </div>
+                <div class="data-viz">
+                    <img src="https://placehold.co/500x300/e1e1e1/666?text=Insert+SEM+Path+Diagram" alt="Data Visualization">
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: #888;">Figure 1: Path Analysis of TTF-TAM Model</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="thoughts" class="section-padding container">
+        <h2 style="margin-bottom: 40px;">💡 Product Thoughts</h2>
+        <div class="thoughts-container">
+            <div class="thought-card card-red">
+                <h3>Xiaohongshu (Red)</h3>
+                <h4 style="opacity: 0.8; margin-bottom: 20px;">Utility First</h4>
+                <p>小红书正在取代百度。用户寻找的不是官方广告，而是"Real People, Real Problems"。商业化的机会在于不破坏“真人感”的前提下，精准植入决策流。</p>
+            </div>
+            <div class="thought-card card-black">
+                <h3>TikTok / Douyin</h3>
+                <h4 style="opacity: 0.8; margin-bottom: 20px;">Engagement First</h4>
+                <p>单列全屏设计剥夺了选择权，却极致放大了算法命中率。最大的挑战是如何让用户从“Kill Time”无缝切换到“Save Time”的购物模式。</p>
+            </div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Xiaohongshu</th>
+                    <th>TikTok</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Core Logic</strong></td>
+                    <td>Search & Discover (主动)</td>
+                    <td>Feed & Recommend (被动)</td>
+                </tr>
+                <tr>
+                    <td><strong>User Intent</strong></td>
+                    <td>Decision Making (决策)</td>
+                    <td>Entertainment (娱乐)</td>
+                </tr>
+                <tr>
+                    <td><strong>My Insight</strong></td>
+                    <td>信任链是核心壁垒</td>
+                    <td>兴趣图谱是核心壁垒</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-cta">Let's frame the future together.</div>
+            <img src="https://placehold.co/100x100/333/fff?text=Hand+Icon" style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; border:2px solid #fff;" alt="Frame Icon">
+            <p>yzhou435@usc.edu | <a href="#" style="text-decoration: underline;">LinkedIn Profile</a></p>
+            <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">© 2025 Yuxiao Zhou. Designed with Data & Creativity.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
